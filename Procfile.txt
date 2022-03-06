@@ -1,1 +1,1 @@
-web: gunicorn API.__init__:app
+web: gunicorn API.run:app
