@@ -1,5 +1,5 @@
 from flask import Flask
-from . import project_secrets as ps
+import project_secrets as ps
 from models import db
 
 app = Flask(__name__)
