@@ -1,4 +1,3 @@
-from appconfig import app
 from models import Person, User
 from views import *
 
