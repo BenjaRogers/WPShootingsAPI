@@ -1,6 +1,6 @@
 import json
 import requests
-from project_secrets import username, password
+from API.project_secrets import username, password
 localhost = 'http://127.0.0.1:5000/'
 new_data = json.load(open('shooting_data.json'))
 

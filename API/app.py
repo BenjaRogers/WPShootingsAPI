@@ -1,6 +1,6 @@
 from flask import Flask
-from ... ApiShoot import project_secrets as ps
-from models import db, User, Person
+from . import project_secrets as ps
+from models import db
 
 app = Flask(__name__)
 
