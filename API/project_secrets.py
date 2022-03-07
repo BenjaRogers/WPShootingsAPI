@@ -1,6 +1,6 @@
 
-username = 'Ben'
+username = 'Admin'
 password = 'password'
 
-db_uri = 'sqlite:///shootdatabase.db'
+db_uri = 'postgresql://postgres:Breakin235!@localhost:5432/shootingsdb'
 secret_key = 'secret_key'
