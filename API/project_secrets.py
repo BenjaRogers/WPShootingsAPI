@@ -1,6 +1,6 @@
 
 username = 'Admin'
-password = 'password'
+password = 'itsapassword235'
 
 
 db_uri_dev = 'postgresql://postgres:Breakin235!@localhost:5432/shootingsdb'
