@@ -233,7 +233,7 @@ def delete_person(current_user, id):
 
 @app.route('/user', methods=['GET'])
 # @token_required
-def get_all_users(current_user):
+def get_all_users():
 
     # if not current_user.admin:
     #     return jsonify({'message' : 'Cannot perform that function.'})
@@ -281,7 +281,7 @@ def create_user():
 
 @app.route('/user/<public_id>', methods=['PUT'])
 # @token_required
-def promote_user(current_user, public_id):
+def promote_user(public_id):
     # if not current_user.admin:
     #     return jsonify({'message' : 'Cannot perform that function.'})
 
