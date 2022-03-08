@@ -4,8 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import jwt
 from functools import wraps
-from app import app, db
-from models import Users, Person
+from API.app import app, db
+from API.models import Users, Person
 
 
 # Create token required decorator
