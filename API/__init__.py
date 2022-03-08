@@ -1,4 +1,4 @@
-from app import app
-from views import *
+from API.app import app
+from API.views import *
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
