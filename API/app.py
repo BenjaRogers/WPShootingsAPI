@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
-import project_secrets as ps
-from models import db
+import API.project_secrets as ps
+from API.models import db
 
 app = Flask(__name__)
 
