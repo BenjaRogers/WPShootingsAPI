@@ -232,11 +232,11 @@ def delete_person(current_user, id):
 #############################################################################################
 
 @app.route('/user', methods=['GET'])
-@token_required
+# @token_required
 def get_all_users(current_user):
 
-    if not current_user.admin:
-        return jsonify({'message' : 'Cannot perform that function.'})
+    # if not current_user.admin:
+    #     return jsonify({'message' : 'Cannot perform that function.'})
 
     users = Users.query.all()
     output = list()
