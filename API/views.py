@@ -4,7 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import jwt
 from functools import wraps
-from app import app, db, User, Person
+from API.app import app, db
+from API.models import Users, Person
 
 
 # Create token required decorator
@@ -21,7 +22,7 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms="HS256")
-            current_user = User.query.filter_by(public_id=data['public_id']).first()
+            current_user = Users.query.filter_by(public_id=data['public_id']).first()
         except:
             return jsonify({'message' : 'Token is invalid!'}), 401
 
@@ -215,8 +216,8 @@ def add_person(current_user):
 @app.route('/person/<id>', methods=['DELETE'])
 @token_required
 def delete_person(current_user, id):
-    # if not current_user.admin:
-    #     return jsonify({'message' : 'Cannot perform that function.'})
+    if not current_user.admin:
+        return jsonify({'message' : 'Cannot perform that function.'})
 
     person = Person.query.filter_by(id=id).first()
     if not person:
@@ -237,7 +238,7 @@ def get_all_users(current_user):
     if not current_user.admin:
         return jsonify({'message' : 'Cannot perform that function.'})
 
-    users = User.query.all()
+    users = Users.query.all()
     output = list()
 
     for user in users:
@@ -253,7 +254,7 @@ def get_all_users(current_user):
 @app.route('/user/<public_id>', methods=['GET'])
 @token_required
 def get_one_user(current_user, public_id):
-    user = User.query.filter_by(public_id=public_id).first()
+    user = Users.query.filter_by(public_id=public_id).first()
 
     if not user:
         return jsonify({'message': 'No user found'})
@@ -272,7 +273,7 @@ def create_user():
 
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
-    new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+    new_user = Users(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message' : 'New user created!!'})
@@ -284,7 +285,7 @@ def promote_user(current_user, public_id):
     if not current_user.admin:
         return jsonify({'message' : 'Cannot perform that function.'})
 
-    user = User.query.filter_by(public_id=public_id).first()
+    user = Users.query.filter_by(public_id=public_id).first()
 
     if not user:
         return jsonify({'message': 'No user found'})
@@ -301,7 +302,7 @@ def delete_user(current_user, public_id):
     if not current_user.admin:
         return jsonify({'message' : 'Cannot perform that function.'})
 
-    user = User.query.filter_by(public_id=public_id).first()
+    user = Users.query.filter_by(public_id=public_id).first()
     if not user:
         return jsonify({'message': 'No user found'})
     db.session.delete(user)
@@ -315,7 +316,7 @@ def login():
     if not auth or not auth.username or not auth.password:
         return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login Required"'})
 
-    user = User.query.filter_by(name=auth.username).first()
+    user = Users.query.filter_by(name=auth.username).first()
 
     if not user:
         return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})

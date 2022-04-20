@@ -1,8 +1,11 @@
-project_secrets.py
+API/project_secrets.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+#custom
+**/project_secrets.py
 
 # C extensions
 *.so
